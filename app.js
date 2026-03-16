@@ -2,11 +2,17 @@ const SHOWROOM_NAME = "VINFAST CARON GIA LÂM - HÀ NỘI";
 const SALES_NAME = "NGUYỄN VĂN PHÚC";
 const SALES_PHONE = "09.838.07.838";
 
-// Data adapted from phuc.txt (subset). Add more rows as needed.
+// Data adapted from phuc.txt (full list in the provided file).
 const cars = [
   {
     model: "VF 3",
     version: "Eco",
+    price: 302_000_000,
+    accessories: "Gói 5tr (Phim cách nhiệt, Cam hành trình - Quy đổi 1tr).",
+  },
+  {
+    model: "VF 3",
+    version: "Eco (TC2)",
     price: 302_000_000,
     accessories: "Gói 5tr (Phim cách nhiệt, Cam hành trình - Quy đổi 1tr).",
   },
@@ -35,9 +41,51 @@ const cars = [
     accessories: "Gói 8tr (Phim Sungard, Cam hành trình - Quy đổi 2tr).",
   },
   {
+    model: "VF 6",
+    version: "Plus Limited",
+    price: 749_000_000,
+    accessories: "Gói 8tr (Phim Sungard, Cam hành trình - Quy đổi 2tr).",
+  },
+  {
     model: "VF 7",
     version: "Eco TC1",
     price: 799_000_000,
+    accessories: "Gói 8tr (Phim Sungard, Cam hành trình - Quy đổi 2tr).",
+  },
+  {
+    model: "VF 7",
+    version: "Eco TC2",
+    price: 789_000_000,
+    accessories: "Gói 8tr (Phim Sungard, Cam hành trình - Quy đổi 2tr).",
+  },
+  {
+    model: "VF 7",
+    version: "Plus (NC, TC1-2 cầu, CATL)",
+    price: 999_000_000,
+    accessories: "Gói 8tr (Phim Sungard, Cam hành trình - Quy đổi 2tr).",
+  },
+  {
+    model: "VF 7",
+    version: "Plus (TC2-2 cầu)",
+    price: 939_000_000,
+    accessories: "Gói 8tr (Phim Sungard, Cam hành trình - Quy đổi 2tr).",
+  },
+  {
+    model: "VF 7",
+    version: "Plus (TC1-1 cầu, pin CATL)",
+    price: 949_000_000,
+    accessories: "Gói 8tr (Phim Sungard, Cam hành trình - Quy đổi 2tr).",
+  },
+  {
+    model: "VF 7",
+    version: "Plus (TC2-1 cầu, pin Gotion)",
+    price: 889_000_000,
+    accessories: "Gói 8tr (Phim Sungard, Cam hành trình - Quy đổi 2tr).",
+  },
+  {
+    model: "VF 8",
+    version: "Eco (1 cầu)",
+    price: 1_019_000_000,
     accessories: "Gói 8tr (Phim Sungard, Cam hành trình - Quy đổi 2tr).",
   },
   {
@@ -47,15 +95,75 @@ const cars = [
     accessories: "Gói 8tr (Phim Sungard, Cam hành trình - Quy đổi 2tr).",
   },
   {
+    model: "VF 8",
+    version: "Plus",
+    price: 1_199_000_000,
+    accessories: "Gói 8tr (Phim Sungard, Cam hành trình - Quy đổi 2tr).",
+  },
+  {
     model: "VF 9",
     version: "Eco 7 chỗ",
     price: 1_499_000_000,
     accessories: "Gói 14tr (Phim 3M, Cam hành trình - Quy đổi 5tr).",
   },
   {
+    model: "VF 9",
+    version: "Plus 7 chỗ",
+    price: 1_699_000_000,
+    accessories: "Gói 14tr (Phim 3M, Cam hành trình - Quy đổi 5tr).",
+  },
+  {
+    model: "VF 9",
+    version: "Plus 6 chỗ",
+    price: 1_731_000_000,
+    accessories: "Gói 14tr (Phim 3M, Cam hành trình - Quy đổi 5tr).",
+  },
+  {
+    model: "Lạc Hồng 900",
+    version: "Limited",
+    price: 5_000_000_000,
+    accessories: "Tặng gói phụ kiện chính hãng VinFast cao cấp.",
+  },
+  {
+    model: "Herio Green",
+    version: "Edition",
+    price: 499_000_000,
+    accessories: "Gói 5tr (Cam hành trình - Quy đổi 1tr).",
+  },
+  {
+    model: "Minio Green",
+    version: "Edition",
+    price: 269_000_000,
+    accessories: "Gói 5tr (Cam hành trình - Quy đổi 1tr).",
+  },
+  {
+    model: "Limo Green",
+    version: "Edition",
+    price: 749_000_000,
+    accessories: "Gói 8tr (Phim EST, Cam hành trình - Quy đổi 4tr).",
+  },
+  {
+    model: "VF MPV7",
+    version: "Tiêu chuẩn",
+    price: 819_000_000,
+    accessories: "Tặng 2 năm bảo hành thân vỏ (Quy đổi 15 triệu).",
+  },
+  {
     model: "EC Van",
     version: "Tiêu chuẩn",
     price: 285_000_000,
+    accessories: "Gói 5tr (Phim tiêu chuẩn, Cam gương - Quy đổi 2tr).",
+  },
+  {
+    model: "EC Van",
+    version: "Nâng cao",
+    price: 305_000_000,
+    accessories: "Gói 5tr (Phim tiêu chuẩn, Cam gương - Quy đổi 2tr).",
+  },
+  {
+    model: "EC Van",
+    version: "Nâng cao (Cửa trượt)",
+    price: 325_000_000,
     accessories: "Gói 5tr (Phim tiêu chuẩn, Cam gương - Quy đổi 2tr).",
   },
 ];
@@ -175,12 +283,25 @@ function render() {
 function init() {
   const carSelect = el("carSelect");
   carSelect.innerHTML = "";
+
+  // Category grouping by model (VF 3, VF 6, VF 7, ...)
+  const groups = new Map();
   cars.forEach((c, i) => {
-    const opt = document.createElement("option");
-    opt.value = String(i);
-    opt.textContent = `[${c.model}] ${c.version} (${formatMoneyVND(c.price)} đ)`;
-    carSelect.appendChild(opt);
+    if (!groups.has(c.model)) groups.set(c.model, []);
+    groups.get(c.model).push({ c, i });
   });
+
+  for (const [model, items] of groups.entries()) {
+    const optgroup = document.createElement("optgroup");
+    optgroup.label = model;
+    items.forEach(({ c, i }) => {
+      const opt = document.createElement("option");
+      opt.value = String(i);
+      opt.textContent = `${c.version} (${formatMoneyVND(c.price)} đ)`;
+      optgroup.appendChild(opt);
+    });
+    carSelect.appendChild(optgroup);
+  }
 
   el("calcBtn").addEventListener("click", render);
   ["change", "input"].forEach((evt) => {
