@@ -8,7 +8,7 @@ const cars = [
     model: "VF 3",
     version: "Eco",
     price: 302_000_000,
-    accessories: "Gói 5tr (Phim cách nhiệt, Cam hành trình - Quy đổi 1tr).",
+    accessories: "Gói 5tr (Phim cách nhiệt, Cam hành trình - Quy đổi 1tr). thay đổi",
   },
   {
     model: "VF 3",
