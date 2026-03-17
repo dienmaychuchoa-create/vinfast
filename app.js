@@ -183,6 +183,9 @@ function el(id) {
 // ===== INPUT =====
 function getInputs() {
   const discountMillion = Number(el("discountMillion").value || 0);
+  const discountPercents = Array.from(
+    document.querySelectorAll('input[name="discountPercents"]:checked'),
+  ).map((n) => Number(n.value || 0));
   const loanEnabled = el("loanEnabled").checked;
   const loanMonths = Math.max(1, Math.floor(Number(el("loanMonths").value || 1)));
   const prepayPercentRaw = Number(el("prepayPercent").value || 0);
@@ -194,6 +197,7 @@ function getInputs() {
 
   return {
     discountMillion,
+    discountPercents,
     loanEnabled,
     loanMonths,
     prepayPercent,
@@ -243,6 +247,7 @@ function render() {
 
   const {
     discountMillion,
+    discountPercents,
     loanEnabled,
     loanMonths,
     prepayPercent,
@@ -250,7 +255,10 @@ function render() {
     feePercent,
   } = getInputs();
 
-  const discount = Math.max(0, Math.round(discountMillion * 1_000_000));
+  const percentTotal = discountPercents.reduce((sum, v) => sum + (Number.isFinite(v) ? v : 0), 0);
+  const discountByPercent = Math.max(0, Math.round((car.price * percentTotal) / 100));
+  const discountByCash = Math.max(0, Math.round(discountMillion * 1_000_000));
+  const discount = discountByPercent + discountByCash;
   const finalPrice = Math.max(0, car.price - discount);
 
   // ✅ NEW: tính phí %
@@ -261,7 +269,10 @@ function render() {
 
   el("qModel").textContent = `${car.model} - ${car.version}`;
   el("qListPrice").textContent = `${formatMoneyVND(car.price)} đ`;
-  el("qDiscount").textContent = `- ${formatMoneyVND(discount)} đ`;
+  el("qDiscount").textContent =
+    percentTotal > 0
+      ? `- ${formatMoneyVND(discount)} đ (${percentTotal}%)`
+      : `- ${formatMoneyVND(discount)} đ`;
   el("qFinalPrice").textContent = `${formatMoneyVND(finalPrice)} đ`;
   el("qOnRoad").textContent = `${formatMoneyVND(onRoad)} đ`;
 
@@ -351,6 +362,9 @@ function init() {
   ["change", "input"].forEach((evt) => {
     carSelect.addEventListener(evt, render);
     el("discountMillion").addEventListener(evt, render);
+    document.querySelectorAll('input[name="discountPercents"]').forEach((n) =>
+      n.addEventListener(evt, render),
+    );
     el("loanEnabled").addEventListener(evt, render);
     el("loanMonths").addEventListener(evt, render);
     el("prepayPercent").addEventListener(evt, render);
