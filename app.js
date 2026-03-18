@@ -2,169 +2,178 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Báo giá VinFast</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 p-4">
-  <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow p-6 space-y-6">
 
-    <!-- HEADER -->
-    <div class="text-center">
-      <h1 class="text-2xl font-bold text-red-600">BÁO GIÁ VINFAST</h1>
-      <p class="text-sm text-gray-500">VINFAST CARON GIA LÂM - HÀ NỘI</p>
-      <p class="text-sm">NVKD: NGUYỄN VĂN PHÚC - 09.838.07.838</p>
-    </div>
+<body class="bg-gray-100 p-4">
+  <div class="max-w-3xl mx-auto bg-white p-4 rounded-2xl shadow">
+
+    <h1 class="text-xl font-bold mb-3">BÁO GIÁ XE VINFAST</h1>
+
+    <!-- CHỌN XE -->
+    <select id="carSelect" class="w-full border p-2 rounded mb-3"></select>
 
     <!-- INPUT -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <select id="carSelect" class="border p-2 rounded"></select>
-
+    <div class="grid grid-cols-2 gap-2 mb-3">
       <input id="discountMillion" type="number" placeholder="Giảm tiền (triệu)" class="border p-2 rounded" />
-
-      <div class="flex gap-2">
-        <label><input type="checkbox" name="discountPercents" value="1" />1%</label>
-        <label><input type="checkbox" name="discountPercents" value="2" />2%</label>
-        <label><input type="checkbox" name="discountPercents" value="3" />3%</label>
-      </div>
-
-      <input id="feePercent" type="number" placeholder="Phí %" class="border p-2 rounded" />
+      <input id="feePercent" type="number" placeholder="% phí lăn bánh" class="border p-2 rounded" value="10"/>
     </div>
 
-    <!-- QUOTE -->
-    <div class="bg-gray-50 p-4 rounded-xl space-y-2">
-      <h2 class="font-bold text-lg">THÔNG TIN BÁO GIÁ</h2>
-      <p>Xe: <b id="qModel"></b></p>
+    <label class="block mb-2">
+      <input type="checkbox" id="loanEnabled" /> Tính trả góp
+    </label>
+
+    <div class="grid grid-cols-3 gap-2 mb-3">
+      <input id="loanMonths" type="number" placeholder="Tháng" class="border p-2 rounded" value="60"/>
+      <input id="prepayPercent" type="number" placeholder="% trả trước" class="border p-2 rounded" value="30"/>
+      <input id="interestRate" type="number" placeholder="Lãi suất %" class="border p-2 rounded" value="10"/>
+    </div>
+
+    <button id="calcBtn" class="bg-blue-600 text-white px-4 py-2 rounded w-full mb-4">
+      TÍNH TOÁN
+    </button>
+
+    <!-- KẾT QUẢ -->
+    <div class="bg-gray-50 p-3 rounded mb-3">
+      <p id="qModel"></p>
       <p>Giá niêm yết: <b id="qListPrice"></b></p>
       <p>Giảm giá: <b id="qDiscount"></b></p>
       <p>Giá sau giảm: <b id="qFinalPrice"></b></p>
       <p>Phí: <b id="qFee"></b></p>
-      <p class="text-red-600 text-lg">Giá lăn bánh: <b id="qOnRoad"></b></p>
-      <div id="qGift" class="text-sm"></div>
+      <p class="text-red-600 font-bold">Lăn bánh: <span id="qOnRoad"></span></p>
+      <div id="qGift" class="mt-2 text-sm"></div>
     </div>
 
-    <!-- LOAN (ĐÃ CHUYỂN XUỐNG DƯỚI) -->
-    <div class="bg-white border rounded-xl p-4 space-y-4">
-      <div class="flex items-center justify-between">
-        <h2 class="font-bold text-lg">TÍNH TRẢ GÓP</h2>
-        <label class="flex items-center gap-2">
-          <input type="checkbox" id="loanEnabled" /> Bật
-        </label>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <input id="loanMonths" type="number" placeholder="Số tháng" class="border p-2 rounded" />
-        <input id="prepayPercent" type="number" placeholder="Trả trước %" class="border p-2 rounded" />
-        <input id="interestRate" type="number" placeholder="Lãi suất %" class="border p-2 rounded" />
-      </div>
-
-      <div id="loanSummary" class="text-sm text-gray-600"></div>
-
-      <div class="overflow-auto max-h-80">
-        <table class="w-full text-sm border">
-          <thead class="bg-gray-200">
-            <tr>
-              <th>Tháng</th>
-              <th>Dư nợ</th>
-              <th>Gốc</th>
-              <th>Lãi</th>
-              <th>Tổng</th>
-            </tr>
-          </thead>
-          <tbody id="loanTableBody"></tbody>
-        </table>
-      </div>
+    <!-- TRẢ GÓP -->
+    <div id="loanSection" class="hidden bg-gray-50 p-3 rounded mb-3">
+      <div id="loanSummary" class="mb-2 text-sm"></div>
+      <table class="w-full text-sm border">
+        <thead>
+          <tr class="bg-gray-200">
+            <th>Tháng</th>
+            <th>Dư nợ</th>
+            <th>Gốc</th>
+            <th>Lãi</th>
+            <th>Tổng</th>
+          </tr>
+        </thead>
+        <tbody id="loanTableBody"></tbody>
+      </table>
     </div>
+
+    <!-- NÚT ZALO -->
+    <button id="zaloBtn" class="bg-green-600 text-white px-4 py-2 rounded w-full">
+      GỬI ZALO
+    </button>
 
   </div>
 
 <script>
-// ===== DATA (GIỮ NGUYÊN) =====
+const SALES_NAME = "NGUYỄN VĂN PHÚC";
+const SALES_PHONE = "0983807838";
+
+// ===== DATA XE =====
 const cars = [
-  { model: "VF 3", version: "Eco", price: 302000000, accessories: "Gói 5tr" },
-  { model: "VF 5", version: "Plus", price: 529000000, accessories: "Gói 8tr" }
+  { model: "VF 3", version: "Eco", price: 302000000, accessories: "Tặng gói 5tr" },
+  { model: "VF 5", version: "Plus", price: 529000000, accessories: "Tặng gói 8tr" },
+  { model: "VF 6", version: "Eco", price: 689000000, accessories: "Tặng gói 8tr" },
+  { model: "VF 7", version: "Eco", price: 799000000, accessories: "Tặng gói 8tr" },
+  { model: "VF 8", version: "Eco", price: 1019000000, accessories: "Tặng gói 8tr" },
 ];
 
-function formatMoneyVND(x) {
-  return Math.round(x).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+// ===== FORMAT =====
+function money(x){
+  return Math.round(x).toLocaleString("vi-VN") + " đ";
 }
 
-function el(id) { return document.getElementById(id); }
+// ===== TRẢ GÓP =====
+function calcLoan(principal, months, rate){
+  let arr=[], remain=principal;
+  let goc=Math.floor(principal/months);
+  let r=rate/1200;
 
-function getInputs() {
-  return {
-    discountMillion: Number(el("discountMillion").value || 0),
-    discountPercents: Array.from(document.querySelectorAll('input[name="discountPercents"]:checked')).map(n=>Number(n.value)),
-    loanEnabled: el("loanEnabled").checked,
-    loanMonths: Number(el("loanMonths").value || 12),
-    prepayPercent: Number(el("prepayPercent").value || 30),
-    interestRate: Number(el("interestRate").value || 10),
-    feePercent: Number(el("feePercent").value || 10),
-  };
-}
-
-function calcLoan(principal, months, rate) {
-  let remain = principal;
-  const r = rate/1200;
-  const goc = principal/months;
-  const rows = [];
   for(let i=1;i<=months;i++){
-    const lai = remain*r;
-    rows.push({i, remain, goc, lai, total:goc+lai});
-    remain -= goc;
+    let lai=Math.floor(remain*r);
+    if(i===months) goc=remain;
+    arr.push({i,remain,goc,lai,total:goc+lai});
+    remain-=goc;
   }
-  return rows;
+  return arr;
 }
+
+let currentData={};
 
 function render(){
-  const car = cars[el("carSelect").value||0];
-  const input = getInputs();
+  let car=cars[carSelect.value];
+  let discount=discountMillion.value*1000000;
+  let final=car.price-discount;
+  let fee=final*(feePercent.value/100);
+  let onRoad=final+fee;
 
-  const percent = input.discountPercents.reduce((a,b)=>a+b,0);
-  const discount = car.price*percent/100 + input.discountMillion*1e6;
-  const final = car.price - discount;
-  const fee = final*input.feePercent/100;
-  const onroad = final + fee;
+  qModel.innerText=car.model+" "+car.version;
+  qListPrice.innerText=money(car.price);
+  qDiscount.innerText=money(discount);
+  qFinalPrice.innerText=money(final);
+  qFee.innerText=money(fee);
+  qOnRoad.innerText=money(onRoad);
+  qGift.innerText=car.accessories;
 
-  el("qModel").textContent = car.model + " " + car.version;
-  el("qListPrice").textContent = formatMoneyVND(car.price);
-  el("qDiscount").textContent = formatMoneyVND(discount);
-  el("qFinalPrice").textContent = formatMoneyVND(final);
-  el("qFee").textContent = formatMoneyVND(fee);
-  el("qOnRoad").textContent = formatMoneyVND(onroad);
-  el("qGift").textContent = car.accessories;
+  currentData={car,final,fee,onRoad};
 
-  if(!input.loanEnabled) return;
+  if(!loanEnabled.checked){
+    loanSection.classList.add("hidden");
+    return;
+  }
 
-  const vay = final*(1-input.prepayPercent/100);
-  const rows = calcLoan(vay, input.loanMonths, input.interestRate);
+  let loan=onRoad*(1-prepayPercent.value/100);
+  let rows=calcLoan(loan,loanMonths.value,interestRate.value);
 
-  el("loanSummary").textContent = "Vay: "+formatMoneyVND(vay);
+  loanSummary.innerHTML=`
+  Vay: <b>${money(loan)}</b> | ${loanMonths.value} tháng | ${interestRate.value}%`;
 
-  const tbody = el("loanTableBody");
-  tbody.innerHTML = "";
-
+  loanTableBody.innerHTML="";
   rows.forEach(r=>{
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${r.i}</td><td>${formatMoneyVND(r.remain)}</td><td>${formatMoneyVND(r.goc)}</td><td>${formatMoneyVND(r.lai)}</td><td>${formatMoneyVND(r.total)}</td>`;
-    tbody.appendChild(tr);
-  });
-}
-
-function init(){
-  const select = el("carSelect");
-  cars.forEach((c,i)=>{
-    const o=document.createElement("option");
-    o.value=i;
-    o.textContent=c.model+" - "+c.version;
-    select.appendChild(o);
+    loanTableBody.innerHTML+=`
+    <tr>
+      <td>${r.i}</td>
+      <td>${money(r.remain)}</td>
+      <td>${money(r.goc)}</td>
+      <td>${money(r.lai)}</td>
+      <td><b>${money(r.total)}</b></td>
+    </tr>`;
   });
 
-  document.querySelectorAll("input,select").forEach(e=>e.addEventListener("input",render));
-  render();
+  loanSection.classList.remove("hidden");
 }
 
-document.addEventListener("DOMContentLoaded",init);
+// ===== ZALO =====
+zaloBtn.onclick=()=>{
+  let c=currentData;
+  let msg=`
+BÁO GIÁ XE VINFAST
+
+Xe: ${c.car.model} ${c.car.version}
+Giá: ${money(c.car.price)}
+Sau giảm: ${money(c.final)}
+Lăn bánh: ${money(c.onRoad)}
+
+Liên hệ: ${SALES_NAME}
+${SALES_PHONE}
+`;
+
+  let url="https://zalo.me/"+SALES_PHONE+"?text="+encodeURIComponent(msg);
+  window.open(url);
+}
+
+// ===== INIT =====
+cars.forEach((c,i)=>{
+  carSelect.innerHTML+=`<option value="${i}">${c.model} - ${money(c.price)}</option>`;
+});
+
+calcBtn.onclick=render;
+render();
 </script>
+
 </body>
 </html>
