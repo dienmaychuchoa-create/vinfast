@@ -7,6 +7,8 @@ export default function QuoteSummary({
   discountByCash,
   finalPrice,
   onRoad,
+  locationFee,
+  onToggleLocationFee,
 }) {
   return (
     <section>
@@ -54,9 +56,33 @@ export default function QuoteSummary({
           </div>
 
           <div className="grid grid-cols-1 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
-            <div className="text-left text-sm font-semibold text-slate-900">LĂN BÁNH TẠM TÍNH</div>
+            <div className="text-left text-sm font-semibold text-slate-900">LĂN BÁNH</div>
             <div className="tabular-nums text-right text-base font-bold text-[#00529b] sm:col-span-2 sm:text-lg">
               {formatMoneyVND(onRoad)} đ
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
+            <div className="text-left text-sm font-medium text-slate-700">Tùy chọn khu vực</div>
+            <div className="flex flex-wrap justify-end gap-3 sm:col-span-2">
+              <label className="inline-flex items-center gap-2 text-sm font-medium text-slate-700">
+                <input
+                  type="checkbox"
+                  checked={locationFee === 20_000_000}
+                  onChange={() => onToggleLocationFee(20_000_000)}
+                  className="h-4 w-4 rounded border-slate-300 text-[#00529b] focus:ring-[#00529b]/20"
+                />
+                HN/HCM (+{formatMoneyVND(20_000_000)} đ)
+              </label>
+              <label className="inline-flex items-center gap-2 text-sm font-medium text-slate-700">
+                <input
+                  type="checkbox"
+                  checked={locationFee === 7_000_000}
+                  onChange={() => onToggleLocationFee(7_000_000)}
+                  className="h-4 w-4 rounded border-slate-300 text-[#00529b] focus:ring-[#00529b]/20"
+                />
+                Tỉnh lẻ (+{formatMoneyVND(7_000_000)} đ)
+              </label>
             </div>
           </div>
         </div>

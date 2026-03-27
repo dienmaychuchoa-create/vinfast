@@ -3,22 +3,25 @@ import { formatMoneyVND } from "../utils/format";
 export default function LoanSection({
   isVisible,
   loanAmount,
+  onRoad,
   loanMonths,
   interestRate,
   prepayPercent,
   rows,
 }) {
   if (!isVisible) return null;
+  const prepayAmount = Math.max(0, onRoad - loanAmount);
 
   return (
     <section>
       <h2 className="text-lg font-semibold text-[#00529b]">DỰ TOÁN TRẢ GÓP CHI TIẾT</h2>
       <p className="mt-2 text-sm text-slate-700">
         Số tiền vay: <b>{formatMoneyVND(loanAmount)} đ</b> | Thời gian: <b>{loanMonths} tháng</b>{" "}
-        | Lãi suất: <b>{interestRate}%/năm</b> | Vay: <b>{100 - prepayPercent}%</b>
+        | Lãi suất: <b>{interestRate}%/năm</b> | Vay: <b>{100 - prepayPercent}%</b> | Số tiền trả
+        trước: <b>{formatMoneyVND(prepayAmount)} đ</b>
       </p>
 
-      <div className="mt-4 max-h-[420px] overflow-auto rounded-xl border border-slate-200 bg-white">
+      <div className="mt-4 rounded-xl border border-slate-200 bg-white">
         <div className="min-w-[720px]">
           <table className="w-full text-sm">
             <thead className="sticky top-0 bg-slate-50">
