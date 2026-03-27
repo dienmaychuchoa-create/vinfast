@@ -62,7 +62,7 @@ export default function QuoteSummary({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
+          <div className="grid grid-cols-2 gap-2 px-4 py-3 sm:grid-cols-2 sm:items-center">
             <div className="text-left text-sm font-semibold text-slate-900 uppercase">GIÁ TẠM TÍNH</div>
             <div className="tabular-nums text-right text-xl font-bold text-rose-600 sm:col-span-2 sm:text-2xl">
               {formatMoneyVND(finalPrice)} đ
@@ -71,7 +71,7 @@ export default function QuoteSummary({
 
           <div className="grid grid-cols-1 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
             <div className="text-left text-sm font-medium text-slate-700">Tùy chọn khu vực</div>
-            <div className="flex flex-wrap justify-end gap-3 sm:col-span-2">
+            <div className="grid w-full grid-cols-2 gap-3 sm:col-span-2 sm:justify-items-end">
               <label className="inline-flex items-center gap-2 text-sm font-medium text-slate-700">
                 <input
                   type="checkbox"
@@ -93,7 +93,7 @@ export default function QuoteSummary({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
+          <div className="grid grid-cols-2 gap-2 px-4 py-3 sm:grid-cols-2 sm:items-center">
             <div className="text-left text-sm font-semibold text-slate-900 uppercase">Giá lăn bánh</div>
             <div className="tabular-nums text-right text-base font-bold text-[#00529b] sm:col-span-2 sm:text-lg">
               {formatMoneyVND(onRoad)} đ
