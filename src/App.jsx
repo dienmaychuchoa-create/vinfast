@@ -204,7 +204,10 @@ export default function App() {
         backgroundColor: "#ffffff",
         windowWidth: 1280,
         windowHeight: Math.max(captureNode.scrollHeight, window.innerHeight),
-        ignoreElements: (el) => el.id === "share-image-fab" || el.id === "share-image-toast",
+        ignoreElements: (el) =>
+          el.id === "share-image-fab" ||
+          el.id === "share-image-toast" ||
+          el.id === "loan-controls",
       });
 
       const blob = await new Promise((resolve) => {
@@ -278,6 +281,20 @@ export default function App() {
                   locationFee={locationFee}
                   onToggleLocationFee={toggleLocationFee}
                 />
+                <div id="loan-controls">
+                  <LoanControls
+                    loanEnabled={loanEnabled}
+                    onLoanEnabledChange={setLoanEnabled}
+                    loanMonths={safeLoanMonths}
+                    onLoanMonthsChange={setLoanMonths}
+                    prepayPercent={safePrepayPercent}
+                    onPrepayPercentChange={setPrepayPercent}
+                    interestRate={safeInterestRate}
+                    onInterestRateChange={setInterestRate}
+                    onRefresh={handleRefresh}
+                    status={status}
+                  />
+                </div>
                 <LoanSection
                   isVisible={loanEnabled}
                   loanAmount={loanAmount}
@@ -288,18 +305,6 @@ export default function App() {
                   rows={loanRows}
                 />
               </div>
-              <LoanControls
-                loanEnabled={loanEnabled}
-                onLoanEnabledChange={setLoanEnabled}
-                loanMonths={safeLoanMonths}
-                onLoanMonthsChange={setLoanMonths}
-                prepayPercent={safePrepayPercent}
-                onPrepayPercentChange={setPrepayPercent}
-                interestRate={safeInterestRate}
-                onInterestRateChange={setInterestRate}
-                onRefresh={handleRefresh}
-                status={status}
-              />
             </section>
           </div>
         </section>
