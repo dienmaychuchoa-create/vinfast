@@ -8,12 +8,18 @@ export default function Header() {
       </div>
       <p className="mt-3 flex flex-col items-center gap-1 text-sm text-slate-700 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-2 sm:gap-y-1">
         <span>
-          <span className="font-semibold text-slate-900">Tư vấn viên:</span> NGUYỄN VĂN
-          PHÚC
+          <span className="text-slate-900">TƯ VẤN BÁN HÀNG:</span>{" "}
+          <span className="font-semibold text-slate-900">NGUYỄN VĂN PHÚC</span>
         </span>
         <span className="hidden text-slate-400 sm:inline">|</span>
         <span>
-          <span className="font-semibold text-slate-900">SĐT:</span> 09.838.07.838
+          <span className="text-slate-900">SĐT:</span>{" "}
+          <a
+            href="tel:0983807838"
+            className="font-semibold text-[#00529b] underline-offset-2 hover:underline"
+          >
+            09.838.07.838
+          </a>
         </span>
       </p>
     </div>

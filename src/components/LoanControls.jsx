@@ -12,7 +12,7 @@ export default function LoanControls({
 }) {
   return (
     <>
-      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-4">
         <label className="flex items-center gap-2">
           <input
             type="checkbox"
@@ -47,9 +47,7 @@ export default function LoanControls({
             className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-[#00529b] focus:outline-none focus:ring-2 focus:ring-[#00529b]/20"
           />
         </label>
-      </div>
 
-      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
         <label className="block md:col-span-1">
           <span className="text-sm font-medium text-slate-700">Lãi suất (%/năm)</span>
           <input
@@ -61,6 +59,10 @@ export default function LoanControls({
             className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-[#00529b] focus:outline-none focus:ring-2 focus:ring-[#00529b]/20"
           />
         </label>
+      </div>
+
+      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+        
 
         <div className="flex items-end gap-3 md:col-span-2">
           <button

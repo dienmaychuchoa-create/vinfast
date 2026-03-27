@@ -25,13 +25,6 @@ export default function QuoteSummary({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
-            <div className="text-left text-sm font-medium text-slate-700">Màu xe</div>
-            <div className="break-words text-right text-sm font-semibold text-slate-900 sm:col-span-2 sm:text-left">
-              {colorName?.trim() || "-"}
-            </div>
-          </div>
-
           <div className="grid grid-cols-2 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
             <div className="text-left text-sm font-medium text-slate-700">Phụ thu màu</div>
             <div className="tabular-nums text-right text-sm text-slate-900 sm:col-span-2">
@@ -74,13 +67,6 @@ export default function QuoteSummary({
           </div>
 
           <div className="grid grid-cols-1 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
-            <div className="text-left text-sm font-semibold text-slate-900">LĂN BÁNH</div>
-            <div className="tabular-nums text-right text-base font-bold text-[#00529b] sm:col-span-2 sm:text-lg">
-              {formatMoneyVND(onRoad)} đ
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
             <div className="text-left text-sm font-medium text-slate-700">Tùy chọn khu vực</div>
             <div className="flex flex-wrap justify-end gap-3 sm:col-span-2">
               <label className="inline-flex items-center gap-2 text-sm font-medium text-slate-700">
@@ -103,6 +89,15 @@ export default function QuoteSummary({
               </label>
             </div>
           </div>
+
+          <div className="grid grid-cols-1 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
+            <div className="text-left text-sm font-semibold text-slate-900 uppercase">Giá lăn bánh</div>
+            <div className="tabular-nums text-right text-base font-bold text-[#00529b] sm:col-span-2 sm:text-lg">
+              {formatMoneyVND(onRoad)} đ
+            </div>
+          </div>
+
+          
         </div>
       </div>
 

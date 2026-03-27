@@ -202,6 +202,8 @@ export default function App() {
       const canvas = await html2canvas(captureNode, {
         useCORS: true,
         backgroundColor: "#ffffff",
+        windowWidth: 1280,
+        windowHeight: Math.max(captureNode.scrollHeight, window.innerHeight),
         ignoreElements: (el) => el.id === "share-image-fab" || el.id === "share-image-toast",
       });
 

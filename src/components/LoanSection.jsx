@@ -16,13 +16,14 @@ export default function LoanSection({
     <section>
       <h2 className="text-lg font-semibold text-[#00529b]">DỰ TOÁN TRẢ GÓP CHI TIẾT</h2>
       <p className="mt-2 text-sm text-slate-700">
-        Số tiền vay: <b>{formatMoneyVND(loanAmount)} đ</b> | Thời gian: <b>{loanMonths} tháng</b>{" "}
-        | Lãi suất: <b>{interestRate}%/năm</b> | Vay: <b>{100 - prepayPercent}%</b> | Số tiền trả
-        trước: <b>{formatMoneyVND(prepayAmount)} đ</b>
+      Số tiền trả
+      trước: <b>{formatMoneyVND(prepayAmount)} đ</b> | Số tiền vay: <b>{formatMoneyVND(loanAmount)} đ</b> | Thời gian: <b>{loanMonths} tháng</b>{" "}
+        | Lãi suất: <b>{interestRate}%/năm</b> | Vay: <b>{100 - prepayPercent}%</b>
       </p>
 
       <div className="mt-4 rounded-xl border border-slate-200 bg-white">
-        <div className="min-w-[720px]">
+        <div className="overflow-x-auto">
+          <div className="min-w-[720px]">
           <table className="w-full text-sm">
             <thead className="sticky top-0 bg-slate-50">
               <tr className="text-slate-700">
@@ -55,6 +56,7 @@ export default function LoanSection({
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       </div>
     </section>

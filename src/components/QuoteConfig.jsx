@@ -19,7 +19,7 @@ export default function QuoteConfig({
     <section>
       <h2 className="text-lg font-semibold text-[#00529b]">Cấu hình báo giá</h2>
 
-      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
         <label className="block">
           <span className="text-sm font-medium text-slate-700">Chọn mẫu xe</span>
           <select
@@ -40,19 +40,6 @@ export default function QuoteConfig({
         </label>
 
         <label className="block">
-          <span className="text-sm font-medium text-slate-700">Màu xe</span>
-          <input
-            type="text"
-            value={colorName}
-            onChange={(e) => onColorNameChange(e.target.value)}
-            placeholder="Ví dụ: Trắng ngọc trai"
-            className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-[#00529b] focus:outline-none focus:ring-2 focus:ring-[#00529b]/20"
-          />
-        </label>
-      </div>
-
-      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
-        <label className="block">
           <span className="text-sm font-medium text-slate-700">Phụ thu màu (triệu đồng)</span>
           <input
             type="number"
@@ -63,9 +50,13 @@ export default function QuoteConfig({
             className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-[#00529b] focus:outline-none focus:ring-2 focus:ring-[#00529b]/20"
           />
         </label>
+      </div>
+
+      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+        
 
         <fieldset className="block">
-          <legend className="text-sm font-medium text-slate-700">% ưu đãi</legend>
+          <legend className="text-sm font-medium text-slate-700">Chương trình ưu đãi</legend>
           <div className="mt-2 flex flex-wrap gap-2">
             {DISCOUNT_OPTIONS.map((percent) => (
               <label
