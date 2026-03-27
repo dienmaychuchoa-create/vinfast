@@ -1,13 +1,18 @@
-# Vercel (Static HTML + Tailwind + JS)
+# VinFast Quote App (Vite + React)
 
-This repo is a **static HTML site** (`index.html`) styled with **Tailwind CSS (CDN)** and powered by **vanilla JavaScript** (`app.js`).
+This project runs on **Vite + React** and keeps Tailwind via CDN in `index.html`.
+
+## Local development
+
+- Install dependencies: `npm install`
+- Start dev server: `npm run dev`
+- Build production bundle: `npm run build`
+- Preview production build: `npm run preview`
 
 ## Deploy on Vercel
 
-- Import this Git repo into Vercel.
-- **Framework Preset**: Other
-- **Build Command**: (leave empty)
-- **Output Directory**: (leave empty)
-
-After deploy, open your site, choose a car, set discount, and optionally enable installment calculation.
+- Import this repo to Vercel.
+- Framework preset: `Vite`
+- Build command: `npm run build`
+- Output directory: `dist`
 
