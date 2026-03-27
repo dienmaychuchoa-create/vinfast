@@ -23,6 +23,8 @@ function buildGroups(items) {
 function readInitialQueryState(carsLength) {
   const defaults = {
     carIndex: 0,
+    colorName: "",
+    colorPriceMillion: 0,
     discountPercents: [],
     discountMillion: 0,
     loanEnabled: false,
@@ -40,6 +42,12 @@ function readInitialQueryState(carsLength) {
   const carIndex = Number.isFinite(carParam)
     ? Math.max(0, Math.min(carsLength - 1, Math.floor(carParam)))
     : defaults.carIndex;
+
+  const colorName = params.get("colorName") || defaults.colorName;
+  const colorPriceParam = Number(params.get("colorPrice"));
+  const colorPriceMillion = Number.isFinite(colorPriceParam)
+    ? Math.max(0, colorPriceParam)
+    : defaults.colorPriceMillion;
 
   const discountPercents = (params.get("dp") || "")
     .split(",")
@@ -75,6 +83,8 @@ function readInitialQueryState(carsLength) {
 
   return {
     carIndex,
+    colorName,
+    colorPriceMillion,
     discountPercents,
     discountMillion,
     loanEnabled,
@@ -88,6 +98,8 @@ function readInitialQueryState(carsLength) {
 export default function App() {
   const [initialQueryState] = useState(() => readInitialQueryState(cars.length));
   const [carIndex, setCarIndex] = useState(initialQueryState.carIndex);
+  const [colorName, setColorName] = useState(initialQueryState.colorName);
+  const [colorPriceMillion, setColorPriceMillion] = useState(initialQueryState.colorPriceMillion);
   const [discountPercents, setDiscountPercents] = useState(initialQueryState.discountPercents);
   const [discountMillion, setDiscountMillion] = useState(initialQueryState.discountMillion);
   const [loanEnabled, setLoanEnabled] = useState(initialQueryState.loanEnabled);
@@ -101,16 +113,18 @@ export default function App() {
 
   const groups = useMemo(() => buildGroups(cars), []);
   const car = cars[carIndex] ?? cars[0];
+  const colorExtraPrice = Math.max(0, Math.round((Number(colorPriceMillion) || 0) * 1_000_000));
+  const listPrice = car.price + colorExtraPrice;
 
   const safeLoanMonths = Math.max(1, Math.floor(Number(loanMonths) || 1));
   const safePrepayPercent = Math.min(100, Math.max(0, Math.floor(Number(prepayPercent) || 0)));
   const safeInterestRate = Math.max(0, Number(interestRate) || 0);
 
   const percentTotal = discountPercents.reduce((sum, v) => sum + (Number.isFinite(v) ? v : 0), 0);
-  const discountByPercent = Math.max(0, Math.round((car.price * percentTotal) / 100));
+  const discountByPercent = Math.max(0, Math.round((listPrice * percentTotal) / 100));
   const discountByCash = Math.max(0, Math.round((Number(discountMillion) || 0) * 1_000_000));
   const discount = discountByPercent + discountByCash;
-  const finalPrice = Math.max(0, car.price - discount);
+  const finalPrice = Math.max(0, listPrice - discount);
 
   const feePercent = 0;
   const fee = Math.round((finalPrice * feePercent) / 100);
@@ -141,6 +155,8 @@ export default function App() {
       .sort((a, b) => a - b);
 
     params.set("car", String(carIndex));
+    if (colorName.trim()) params.set("colorName", colorName.trim());
+    params.set("colorPrice", String(Math.max(0, Number(colorPriceMillion) || 0)));
     params.set("dp", selectedPercents.join(","));
     params.set("dm", String(Math.max(0, Number(discountMillion) || 0)));
     params.set("loan", loanEnabled ? "1" : "0");
@@ -154,6 +170,8 @@ export default function App() {
     window.history.replaceState(null, "", nextUrl);
   }, [
     carIndex,
+    colorName,
+    colorPriceMillion,
     discountPercents,
     discountMillion,
     loanEnabled,
@@ -234,6 +252,10 @@ export default function App() {
               groups={groups}
               carIndex={carIndex}
               onCarIndexChange={setCarIndex}
+              colorName={colorName}
+              onColorNameChange={setColorName}
+              colorExtraPriceMillion={colorPriceMillion}
+              onColorExtraPriceMillionChange={setColorPriceMillion}
               discountPercents={discountPercents}
               onToggleDiscountPercent={toggleDiscountPercent}
               discountMillion={discountMillion}
@@ -244,6 +266,8 @@ export default function App() {
               <div ref={shareCaptureRef} className="space-y-8">
                 <QuoteSummary
                   car={car}
+                  colorName={colorName}
+                  listPrice={listPrice}
                   percentTotal={percentTotal}
                   discountByPercent={discountByPercent}
                   discountByCash={discountByCash}

@@ -2,6 +2,8 @@ import { formatMoneyVND } from "../utils/format";
 
 export default function QuoteSummary({
   car,
+  colorName,
+  listPrice,
   percentTotal,
   discountByPercent,
   discountByCash,
@@ -23,15 +25,31 @@ export default function QuoteSummary({
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
-            <div className="text-left text-sm font-medium text-slate-700">Giá niêm yết</div>
-            <div className="tabular-nums text-right text-sm text-slate-900 sm:col-span-2">
-              {formatMoneyVND(car.price)} đ
+          <div className="grid grid-cols-1 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
+            <div className="text-left text-sm font-medium text-slate-700">Màu xe</div>
+            <div className="break-words text-right text-sm font-semibold text-slate-900 sm:col-span-2 sm:text-left">
+              {colorName?.trim() || "-"}
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
-            <div className="text-left text-sm font-medium text-slate-700">Ưu đãi giảm giá</div>
+            <div className="text-left text-sm font-medium text-slate-700">Phụ thu màu</div>
+            <div className="tabular-nums text-right text-sm text-slate-900 sm:col-span-2">
+              {Math.max(0, listPrice - car.price) > 0
+                ? `+ ${formatMoneyVND(Math.max(0, listPrice - car.price))} đ`
+                : "0 đ"}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
+            <div className="text-left text-sm font-medium text-slate-700">Giá niêm yết</div>
+            <div className="tabular-nums text-right text-sm text-slate-900 sm:col-span-2">
+              {formatMoneyVND(listPrice)} đ
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
+            <div className="text-left text-sm font-medium text-slate-700">Ưu đãi giảm giá(%)</div>
             <div className="tabular-nums text-right text-sm font-medium text-emerald-700 sm:col-span-2">
               {percentTotal > 0
                 ? `- ${formatMoneyVND(discountByPercent)} đ (${percentTotal}%)`

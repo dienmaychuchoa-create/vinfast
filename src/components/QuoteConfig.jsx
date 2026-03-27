@@ -6,6 +6,10 @@ export default function QuoteConfig({
   groups,
   carIndex,
   onCarIndexChange,
+  colorName,
+  onColorNameChange,
+  colorExtraPriceMillion,
+  onColorExtraPriceMillionChange,
   discountPercents,
   onToggleDiscountPercent,
   discountMillion,
@@ -33,6 +37,31 @@ export default function QuoteConfig({
               </optgroup>
             ))}
           </select>
+        </label>
+
+        <label className="block">
+          <span className="text-sm font-medium text-slate-700">Màu xe</span>
+          <input
+            type="text"
+            value={colorName}
+            onChange={(e) => onColorNameChange(e.target.value)}
+            placeholder="Ví dụ: Trắng ngọc trai"
+            className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-[#00529b] focus:outline-none focus:ring-2 focus:ring-[#00529b]/20"
+          />
+        </label>
+      </div>
+
+      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
+        <label className="block">
+          <span className="text-sm font-medium text-slate-700">Phụ thu màu (triệu đồng)</span>
+          <input
+            type="number"
+            min="0"
+            step="1"
+            value={colorExtraPriceMillion}
+            onChange={(e) => onColorExtraPriceMillionChange(Number(e.target.value || 0))}
+            className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-[#00529b] focus:outline-none focus:ring-2 focus:ring-[#00529b]/20"
+          />
         </label>
 
         <fieldset className="block">
