@@ -18,10 +18,20 @@ export default function QuoteSummary({
 
       <div className="mt-4 rounded-xl border border-slate-200 bg-white">
         <div className="divide-y divide-slate-200">
-          <div className="grid grid-cols-1 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
+
+          <div className="grid grid-cols-2 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
             <div className="text-left text-sm font-medium text-slate-700">Mẫu xe</div>
-            <div className="break-words text-right text-sm font-semibold text-slate-900 sm:col-span-2 sm:text-left">
-              {car.model} - {car.version}
+            <div className="tabular-nums text-right text-sm text-slate-900 sm:col-span-2">
+            {car.model} - {car.version} 
+            </div>
+          </div>
+
+          
+
+          <div className="grid grid-cols-2 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
+            <div className="text-left text-sm font-medium text-slate-700">Giá niêm yết</div>
+            <div className="tabular-nums text-right text-sm text-slate-900 sm:col-span-2">
+              {formatMoneyVND(car.price)} đ
             </div>
           </div>
 
@@ -31,13 +41,6 @@ export default function QuoteSummary({
               {Math.max(0, listPrice - car.price) > 0
                 ? `+ ${formatMoneyVND(Math.max(0, listPrice - car.price))} đ`
                 : "0 đ"}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
-            <div className="text-left text-sm font-medium text-slate-700">Giá niêm yết</div>
-            <div className="tabular-nums text-right text-sm text-slate-900 sm:col-span-2">
-              {formatMoneyVND(listPrice)} đ
             </div>
           </div>
 
@@ -60,7 +63,7 @@ export default function QuoteSummary({
           </div>
 
           <div className="grid grid-cols-1 gap-2 px-4 py-3 sm:grid-cols-3 sm:items-center">
-            <div className="text-left text-sm font-semibold text-slate-900">GIÁ XE SAU GIẢM</div>
+            <div className="text-left text-sm font-semibold text-slate-900 uppercase">GIÁ TẠM TÍNH</div>
             <div className="tabular-nums text-right text-xl font-bold text-rose-600 sm:col-span-2 sm:text-2xl">
               {formatMoneyVND(finalPrice)} đ
             </div>

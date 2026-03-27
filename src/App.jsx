@@ -121,7 +121,7 @@ export default function App() {
   const safeInterestRate = Math.max(0, Number(interestRate) || 0);
 
   const percentTotal = discountPercents.reduce((sum, v) => sum + (Number.isFinite(v) ? v : 0), 0);
-  const discountByPercent = Math.max(0, Math.round((listPrice * percentTotal) / 100));
+  const discountByPercent = Math.max(0, Math.round((car.price * percentTotal) / 100));
   const discountByCash = Math.max(0, Math.round((Number(discountMillion) || 0) * 1_000_000));
   const discount = discountByPercent + discountByCash;
   const finalPrice = Math.max(0, listPrice - discount);
